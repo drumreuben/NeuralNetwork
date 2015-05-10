@@ -13,17 +13,20 @@ public class Neuron {
 
     /**
      * Constructor for a neuron with numInputs number of inputs.
+     * Creates one more weight than input as the threshold value
      */
     public Neuron(int numInputs) {
-        for(int i = 0; i < numInputs; i++)
+        for(int i = 0; i <= numInputs; i++)
             weights.add(Math.random());
     }
 
     /**
      * Sets input list for Neuron
+     * Creates one more input of value -1 as the threshold value
      */
     public void setInputs(List<Double> inp) {
         inputs = inp;
+        inputs.add(-1.0);
     }
 
     /**
