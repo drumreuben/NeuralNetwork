@@ -12,6 +12,14 @@ public class Neuron {
     private double output = 0;
 
     /**
+     * Constructor for a neuron with numInputs number of inputs.
+     */
+    public Neuron(int numInputs) {
+        for(int i = 0; i < numInputs; i++)
+            weights.add(Math.random());
+    }
+
+    /**
      * Sets input list for Neuron
      */
     public void setInputs(List<Double> inp) {
@@ -26,8 +34,16 @@ public class Neuron {
     }
 
     /**
-     * Gets output from neuron
+     * Get functions below
      */
+    public List<Double> getInputs(){
+        return inputs;
+    }
+
+    public List<Double> getWeights() {
+        return weights;
+    }
+
     public double getOutput(){
         return output;
     }
