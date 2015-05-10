@@ -19,21 +19,21 @@ public class Minefield {
     //controls speed of the animation by causing the thread to sleep for a set amount of milliseconds
     private final int ANIMATION_SPEED = 2;
 
-    /***
+    /**
     gets the list of targets
      */
     public List<Target> getTargets() {
         return targets;
     }
 
-    /***
+    /**
     Gets the list of sweepers
      */
     public List<Sweeper> getSweepers() {
         return sweepers;
     }
 
-    /***
+    /**
     Gets width
     */
     public int getWidth() {
@@ -60,7 +60,7 @@ public class Minefield {
         }
     }
 
-    /***
+    /**
     fixes the position of each sweeper on the field so they do not go out of bounds
      */
     public void fixPosition(Sweeper s){

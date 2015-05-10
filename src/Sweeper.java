@@ -32,36 +32,36 @@ public class Sweeper implements Comparable{
     //what the sweeper looks like
     Image sprite;
 
-    /*****
+    /**
     Gets fitness
      */
     public int getFitness() {
         return fitness;
     }
 
-    /*****
+    /**
     Gets the sweepers genome
      */
     public List<Double> getGenome() {
         return neuralNet.getAllWeights();
     }
 
-    /*****
+    /**
     Gets the sweepers Neural Net
      */
     public NeuralNet getNeuralNet() { return neuralNet; }
 
-    /*****
+    /**
     Gets sweeper x coord
      */
     public int getX() { return x; }
 
-    /*****
+    /**
     Gets sweeper y coord
      */
     public int getY() { return y; }
 
-    /*****
+    /**
     Sets sweeper x coord
      */
     public void setX(int x) { this.x = x; }
