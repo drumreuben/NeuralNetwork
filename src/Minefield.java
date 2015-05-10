@@ -35,6 +35,14 @@ public class Minefield {
             sweepers.add(new Sweeper(this));
         for(int i = 0; i < numTargets; i++)
             targets.add(new Target(this));
+        //sets up swing components for graphical rendering
+        panel = new MyGraphicPanel(this);
+        frame = new JFrame("Window");
+        frame.add(panel);
+        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setVisible(true);
     }
 
     /**
@@ -76,6 +84,10 @@ public class Minefield {
                 s.updatePosition();
                 //makes sure sweeped is within the bounds of the window
                 fixPosition(s);
+                if(s.foundTarget()){
+                    targets.remove(s.getClosestTarget());
+                    targets.add(new Target(this));
+                }
             }
             //only draws if the current generation is after the draw delay
             if(generation > drawDelay){

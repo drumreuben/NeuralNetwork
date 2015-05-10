@@ -22,6 +22,12 @@ public class Sweeper implements Comparable{
     //number of targets the sweeper has collected in its lifetime
     private int fitness;
 
+    //current closest target to the sweeper
+    Target closestTarget;
+
+    //tolerance for how close a sweeper has to be to a target to pick it up
+    private final int TOLERANCE = 25;
+
     //neural net that controls the movement of the sweeper
     private NeuralNet neuralNet;
 
@@ -85,6 +91,11 @@ public class Sweeper implements Comparable{
     public void setY(int y) { this.y = y; }
 
     /**
+     * Gets target closest to sweeper
+     */
+    public Target getClosestTarget() { return closestTarget; }
+
+    /**
         Comparison based off fitness. Used by the genetic algorithm to select best candidates
     */
     public int compareTo(Object s){
@@ -102,7 +113,7 @@ public class Sweeper implements Comparable{
         y += Math.acos(rotation) * speed;
     }
 
-    /*
+    /**
     Updates sweeper input list
      */
     public void updateInputs(){
@@ -113,9 +124,9 @@ public class Sweeper implements Comparable{
         inputs.add((double)y);
         inputs.add(rotation);
         //finds the closest target, ands adds its x and y coordinates
-        Target t = findNearestTarget();
-        inputs.add((double)t.getX());
-        inputs.add((double)t.getY());
+        closestTarget = findNearestTarget();
+        inputs.add((double)closestTarget.getX());
+        inputs.add((double)closestTarget.getY());
     }
 
     /*
@@ -143,10 +154,9 @@ public class Sweeper implements Comparable{
         g2d.drawImage(sprite, at, null);
     }
 
-    /*
+    /**
     Gets the Target closest to the sweeper
      */
-    //finds the closest mine to the sweeper
     public Target findNearestTarget(){
         //index of current best candidate
         int currentClosestIndex = 0;
@@ -167,6 +177,19 @@ public class Sweeper implements Comparable{
             }
         }
         return minefield.getTargets().get(currentClosestIndex);
+    }
+
+    /**
+    Returns true if the sweeper has passed within a tolerance of a target, and adds 1 to fitness of the sweeper
+     */
+    public boolean foundTarget() {
+        //gets the nearest target
+        Target nearestTarget = findNearestTarget();
+        //determines if the sweeper is over the target
+        if(Math.abs(this.getX() - nearestTarget.getX()) < TOLERANCE && Math.abs(this.getY() - nearestTarget.getY()) < TOLERANCE){
+            return true;
+        }
+        return false;
     }
 
 
