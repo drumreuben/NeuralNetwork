@@ -6,7 +6,7 @@ import java.util.List;
  * 5/9/2015
  */
 public class NeuronLayer {
-    private List<Neuron> neurons;
+    private List<Neuron> neurons = new ArrayList<Neuron>();
     private int numNeurons;
 
     /**
@@ -51,6 +51,7 @@ public class NeuronLayer {
     public List<Double> processLayer(List<Double> input) {
         List<Double> outputs = new ArrayList<Double>();
         for(Neuron n : neurons) {
+            input.add(-1.0);
             outputs.add(n.calcOutput(input));
         }
         return outputs;
