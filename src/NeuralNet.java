@@ -4,8 +4,8 @@ import java.util.List;
  * Miro Furtado
  * 5/9/2015
  */
-public class NeuronNet {
-    //Basic parameter variables for a NeuronNet
+public class NeuralNet {
+    //Basic parameter variables for a NeuralNet
     int numInputs;
     int numOutputs;
     int numHiddenLayers;
@@ -13,9 +13,9 @@ public class NeuronNet {
     List<NeuronLayer> layers;
 
     /**
-     * Constructor for NeuronNet using above parameters
+     * Constructor for NeuralNet using above parameters
      */
-    public NeuronNet(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer) {
+    public NeuralNet(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer) {
         //First add the first hidden layer
         layers.add(new NeuronLayer(numNeuronsPerHiddenLayer, numInputs));
         //Add the rest of the hidden layers
@@ -24,5 +24,19 @@ public class NeuronNet {
         }
         //Add output layer
         layers.add(new NeuronLayer(numOutputs, numNeuronsPerHiddenLayer));
+    }
+
+    public List<Double> processNet(List<Double> inputs) {
+        List<Double> finalOutput;
+        List<Double> tempInput = inputs;
+        List<Double> tempOutput;
+        return null;
+    }
+
+    /**
+     * Returns 1-class deep copy of NeuralNet
+     */
+    public NeuralNet getCopy() {
+        return new NeuralNet(numInputs, numOutputs, numHiddenLayers, numNeuronsPerHiddenLayer);
     }
 }

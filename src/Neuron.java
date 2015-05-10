@@ -21,6 +21,12 @@ public class Neuron {
     }
 
     /**
+     * Constructor for a neuron with numInputs number of inputs and weights
+     */
+    public Neuron(int numInputs, List<Double> weights) {
+    }
+
+    /**
      * Sets input list for Neuron
      * Creates one more input of value -1 as the threshold value
      */
@@ -54,17 +60,18 @@ public class Neuron {
     /**
      * Calculates activation and output
      */
-    public void calcOutput(){
+    public double calcOutput(){
         for(int i = 0; i < weights.size(); i++) {
             activation += weights.get(i) * inputs.get(i);
         }
         output = 1/(1+Math.pow(Math.E, -activation));
+        return output;
     }
     /**
      * Calculates activation and output for a given set of inputs
      */
-    public void calcOutput(List<Double> inp) {
+    public double calcOutput(List<Double> inp) {
         setInputs(inp);
-        calcOutput();
+        return calcOutput();
     }
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,5 +29,23 @@ public class NeuronLayer {
      */
     public void addNeuron(Neuron n) {
         neurons.add(n);
+    }
+
+    /**
+     * Gets neuron of number num
+     */
+    public Neuron getNeuron(int num) {
+        return neurons.get(num);
+    }
+
+    /**
+     * Returns an array of the outputs from all Neurons in the NeuronLayer
+     */
+    public List<Double> processLayer(List<Double> input) {
+        List<Double> outputs = new ArrayList<Double>();
+        for(Neuron n : neurons) {
+            outputs.add(n.calcOutput(input));
+        }
+        return outputs;
     }
 }
