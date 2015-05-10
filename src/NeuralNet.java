@@ -26,11 +26,14 @@ public class NeuralNet {
         layers.add(new NeuronLayer(numOutputs, numNeuronsPerHiddenLayer));
     }
 
-    public List<Double> processNet(List<Double> inputs) {
-        List<Double> finalOutput;
-        List<Double> tempInput = inputs;
-        List<Double> tempOutput;
-        return null;
+    public List<Double> processNet(List<Double> i) {
+        List<Double> input = i;
+        List<Double> output = null;
+        for(NeuronLayer l : layers) {
+            output = l.processLayer(input);
+            input = output;
+        }
+        return output;
     }
 
     /**
@@ -38,5 +41,12 @@ public class NeuralNet {
      */
     public NeuralNet getCopy() {
         return new NeuralNet(numInputs, numOutputs, numHiddenLayers, numNeuronsPerHiddenLayer);
+    }
+
+    /**
+     * Returns NeuralNet's layers
+     */
+    public List<NeuronLayer> getLayers() {
+        return layers;
     }
 }
