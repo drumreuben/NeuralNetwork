@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/***
  * Miro Furtado
  * 5/9/2015
  * Implementation of a network of Neurons which interact with each other.
@@ -14,7 +14,7 @@ public class NeuralNet {
     int numNeuronsPerHiddenLayer;
     List<NeuronLayer> layers = new ArrayList<NeuronLayer>();
 
-    /**
+    /***
      * Constructor for NeuralNet using above parameters
      */
     public NeuralNet(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer) {
@@ -28,7 +28,7 @@ public class NeuralNet {
         layers.add(new NeuronLayer(numOutputs, numNeuronsPerHiddenLayer));
     }
 
-    /**
+    /***
      * Processes NeuralNet from input and returns output
      */
     public List<Double> processNet(List<Double> i) {
@@ -41,7 +41,7 @@ public class NeuralNet {
         return output;
     }
 
-    /**
+    /***
      * Returns entire "genome"- ie. all the weights for all the neurons in the NeuralNet
      */
     public List<Double> getAllWeights(){
@@ -53,7 +53,7 @@ public class NeuralNet {
         return allWeights;
     }
 
-    /**
+    /***
      * Pushes new genome into NeuralNet
      */
     public void pushAllWeights(List<Double> genome){
@@ -67,14 +67,14 @@ public class NeuralNet {
 
     }
 
-    /**
+    /***
      * Returns 1-class deep copy of NeuralNet
      */
     public NeuralNet getCopy() {
         return new NeuralNet(numInputs, numOutputs, numHiddenLayers, numNeuronsPerHiddenLayer);
     }
 
-    /**
+    /***
      * Returns NeuralNet's layers
      */
     public List<NeuronLayer> getLayers() {

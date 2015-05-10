@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
+/***
  * Created by Reuben on 5/9/2015.
  * Handles the creation of each new generation
  * of sweepers via the principles of natural evolution.
@@ -13,7 +13,7 @@ public class GeneticAlgorithm {
     static double mutationRate = .001;
     static double crossoverRate = .7;
 
-    /*
+    /**
     Given a population of sweepers, return a new population of the same size
     where the principles of evolution have been applied
      */
@@ -46,7 +46,7 @@ public class GeneticAlgorithm {
         return newGen;
     }
 
-    /*
+    /**
     crosses over two genomes by splitting, as long as a randomly generated number is less than the crossover rate
      */
     public static List<Double> crossover(List<Double> genome1, List<Double> genome2) {
@@ -76,7 +76,7 @@ public class GeneticAlgorithm {
         return newGenome;
     }
 
-    /*
+    /**
     mutates a genome based off the mutation rate
      */
     public static List<Double> mutate(List<Double> genome){
