@@ -87,6 +87,7 @@ public class Minefield {
             for(Sweeper s : sweepers) {
                 //updates sweeper position
                 s.updatePosition();
+                //System.out.println("Rot: " + s.getRotation());
                 //makes sure sweeper is within the bounds of the window
                 fixPosition(s);
                 if(s.foundTarget()){

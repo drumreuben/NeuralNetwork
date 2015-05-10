@@ -17,7 +17,7 @@ public class Sweeper implements Comparable{
     private double y;
 
     //rotation of the sweeper measured in degrees relative to the positive x-axis
-    private double rotation = 0;
+    private double rotation = 180 - (Math.random()*360);
 
     //current speed of the sweeper
     private double speed = 1;
@@ -64,7 +64,7 @@ public class Sweeper implements Comparable{
     }
 
     public Sweeper(Minefield m){
-        neuralNet = new NeuralNet(5,2,1,4);
+        neuralNet = new NeuralNet(2,2,1,4);
         x = (int) (Math.random()*m.getWidth());
         y = (int) (Math.random()*m.getHeight());
         this.minefield = m;
@@ -119,6 +119,11 @@ public class Sweeper implements Comparable{
     public void setY(double y) { this.y = y; }
 
     /**
+     * gets sweeper rotation
+     */
+    public double getRotation() { return rotation; }
+
+    /**
      * Gets target closest to sweeper
      */
     public Target getClosestTarget() { return closestTarget; }
@@ -154,13 +159,15 @@ public class Sweeper implements Comparable{
         //clears values currently stored in inputs
         inputs.clear();
         //adds the x and y positions and current rotation
-        inputs.add(x);
-        inputs.add(y);
+        //inputs.add(x);
+        //inputs.add(y);
         inputs.add(rotation);
         //finds the closest target, ands adds its x and y coordinates
         closestTarget = findNearestTarget();
-        inputs.add((double)closestTarget.getX());
-        inputs.add((double)closestTarget.getY());
+        //inputs.add((double)closestTarget.getX());
+        //inputs.add((double)closestTarget.getY());
+        inputs.add((double)closestTarget.getX()-x);
+        inputs.add((double)closestTarget.getY()-y);
     }
 
     /*
@@ -171,9 +178,9 @@ public class Sweeper implements Comparable{
        // for(double d : neuralNet.getAllWeights()){
         //    System.out.println(d);
         //}
-        rotation += neuralNet.processNet(inputs).get(0);
-        rotation = rotation % 360;
-        speed = 2* neuralNet.getOutputs().get(1);
+        rotation += neuralNet.processNet(inputs).get(0)*30;
+       rotation = rotation % 360;
+       speed = 5* neuralNet.getOutputs().get(1);
     }
 
 
@@ -184,7 +191,7 @@ public class Sweeper implements Comparable{
         // System.out.println("drawing");
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform at = AffineTransform.getTranslateInstance(x, y);
-        at.rotate(Math.toRadians(180-rotation), sprite.getWidth(null) / 2, sprite.getHeight(null) / 2);
+        at.rotate(Math.toRadians(rotation), sprite.getWidth(null) / 2, sprite.getHeight(null) / 2);
         g2d.drawImage(sprite, at, null);
     }
 
@@ -243,6 +250,8 @@ public class Sweeper implements Comparable{
         Target nearestTarget = findNearestTarget();
         //determines if the sweeper is over the target
         if(Math.abs(this.getX() - nearestTarget.getX()) < TOLERANCE && Math.abs(this.getY() - nearestTarget.getY()) < TOLERANCE){
+            //increments fitness
+            fitness++;
             return true;
         }
         return false;
