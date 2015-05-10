@@ -17,11 +17,11 @@ public class Run {
     public static void main(String[] args){
         //int sweeperCount = Integer.parseInt(args[0]);
         //int mineCount = Integer.parseInt(args[1]);
-        Minefield m = new Minefield(800, 800, 10, 3);
+        Minefield m = new Minefield(800, 800, 10, 6);
 
         int i = 0;
         while(true){
-            m.simulate(5000, 100, i);
+            m.simulate(10000, 1000, i);
             int collisions = 0;
             for(Sweeper s : m.getSweepers()){
                 collisions += s.getFitness();
