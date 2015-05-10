@@ -22,15 +22,17 @@ public class Sweeper implements Comparable{
     //number of targets the sweeper has collected in its lifetime
     private int fitness;
 
-    //x and y coords of the nearest target to the sweeper
-    private int targetX;
-    private int targetY;
-
     //neural net that controls the movement of the sweeper
     private NeuralNet neuralNet;
 
+    //the input into the neural net
+    List<Double> inputs;
+
     //what the sweeper looks like
     Image sprite;
+
+    //the minefield the sweeper inhabits
+    Minefield minefield;
 
     /**
      * Sweeper constructor
@@ -40,6 +42,7 @@ public class Sweeper implements Comparable{
         neuralNet = new NeuralNet(6,2,1,5);
         x = (int) Math.random()*m.getWidth();
         y = (int) Math.random()*m.getHeight();
+        this.minefield = m;
     }
 
     /**
@@ -76,12 +79,12 @@ public class Sweeper implements Comparable{
      */
     public void setX(int x) { this.x = x; }
 
-    /*****
+    /**
     Sets sweeper y coord
      */
     public void setY(int y) { this.y = y; }
 
-    /*****
+    /**
         Comparison based off fitness. Used by the genetic algorithm to select best candidates
     */
     public int compareTo(Object s){
@@ -90,14 +93,46 @@ public class Sweeper implements Comparable{
         return -1;
     }
 
-    /*****
+    /**
+     * Gets neural net output, then updates the position of the sweeper
+     */
+    public void updatePosition(){
+        getNeuralNetOutput();
+        x += Math.asin(rotation) * speed;
+        y += Math.acos(rotation) * speed;
+    }
+
+    /*
+    Updates sweeper input list
+     */
+    public void updateInputs(){
+        //clears values currently stored in inputs
+        inputs.clear();
+        //adds the x and y positions and current rotation
+        inputs.add((double)x);
+        inputs.add((double)y);
+        inputs.add(rotation);
+        //finds the closest target, ands adds its x and y coordinates
+        Target t = findNearestTarget();
+        inputs.add((double)t.getX());
+        inputs.add((double)t.getY());
+    }
+
+    /*
+    Updates sweeper rotation based on neural net output
+     */
+    public void getNeuralNetOutput(){
+        rotation = neuralNet.processNet(inputs).get(0);
+    }
+
+    /**
     A constructor for a sweeper where it is passed a neural net
      */
     public Sweeper(NeuralNet neuralNet){
         this.neuralNet = neuralNet;
     }
 
-    /****
+    /**
     Draw method for the sweeper. Used by the custom graphics panel for animation
      */
     public void draw(Graphics g){
@@ -106,6 +141,32 @@ public class Sweeper implements Comparable{
         AffineTransform at = AffineTransform.getTranslateInstance(x, y);
         at.rotate(Math.toRadians(rotation), sprite.getWidth(null) / 2, sprite.getHeight(null) / 2);
         g2d.drawImage(sprite, at, null);
+    }
+
+    /*
+    Gets the Target closest to the sweeper
+     */
+    //finds the closest mine to the sweeper
+    public Target findNearestTarget(){
+        //index of current best candidate
+        int currentClosestIndex = 0;
+        //current best distance starts at double max value
+        double currentBestDistance = Double.MAX_VALUE;
+        //stores the distance to the target it is currently checking
+        double distanceToTarget;
+        //checks each target on the minefield
+        for(int i = 0; i < minefield.getTargets().size(); i++){
+            //current mine
+            Target t = minefield.getTargets().get(i);
+            //calculates distance to target based off pythagorean theorem
+            distanceToTarget = Math.sqrt(Math.pow(this.getX() - t.getX(), 2) + Math.pow(this.getY() - t.getY(), 2));
+            //compares to best distance and updates best distance and best index if less than
+            if(distanceToTarget < currentBestDistance){
+                currentBestDistance = distanceToTarget;
+                currentClosestIndex = i;
+            }
+        }
+        return minefield.getTargets().get(currentClosestIndex);
     }
 
 

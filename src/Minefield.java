@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.List;
 
 /***
@@ -15,6 +16,12 @@ public class Minefield {
     //dimension of the minefield
     private int width;
     private int height;
+
+    //Jframe window of the minefield
+    JFrame frame;
+
+    //panel that renders the minefield
+    MyGraphicPanel panel;
 
     //controls speed of the animation by causing the thread to sleep for a set amount of milliseconds
     private final int ANIMATION_SPEED = 2;
@@ -40,22 +47,28 @@ public class Minefield {
         return width;
     }
 
-    /***
+    /**
     Gets height
      */
     public int getHeight() {
         return height;
     }
 
-    /***
+    /**
     simulates a single generation of sweepers
      */
     public void simulate(int ticks, int drawDelay, int generation){
         int i = 0;
         while(i < ticks){
             for(Sweeper s : sweepers) {
-                //update the position of the sweeper
+                //updates sweeper position
+                s.updatePosition();
+                //makes sure sweeped is within the bounds of the window
                 fixPosition(s);
+            }
+            //only draws if the current generation is after the draw delay
+            if(generation > drawDelay){
+                panel.repaint();
             }
         }
     }
