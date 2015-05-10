@@ -33,6 +33,16 @@ public class Sweeper implements Comparable{
     Image sprite;
 
     /**
+     * Sweeper constructor
+     * @param m
+     */
+    public Sweeper(Minefield m){
+        neuralNet = new NeuralNet(6,2,1,5);
+        x = (int) Math.random()*m.getWidth();
+        y = (int) Math.random()*m.getHeight();
+    }
+
+    /**
     Gets fitness
      */
     public int getFitness() {
