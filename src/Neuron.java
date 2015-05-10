@@ -4,6 +4,7 @@ import java.util.List;
 /**
  * Miro Furtado
  * 5/9/2015
+ * Implementation of an individual Neuron, which takes input values and returns an output based on weights.
  */
 public class Neuron {
     //Defining weights, inputs, and activation as per http://www.ai-junkie.com/ann/evolved/nnt3.html
@@ -26,7 +27,9 @@ public class Neuron {
     /**
      * Constructor for a neuron with numInputs number of inputs and weights
      */
-    public Neuron(int numInputs, List<Double> weights) {
+    public Neuron(int nIn, List<Double> w) {
+        nIn = numInputs;
+        weights = w;
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.List;
 /**
  * Miro Furtado
  * 5/9/2015
+ * Implementation of a network of Neurons which interact with each other.
  */
 public class NeuralNet {
     //Basic parameter variables for a NeuralNet

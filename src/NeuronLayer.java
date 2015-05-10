@@ -4,6 +4,7 @@ import java.util.List;
 /**
  * Miro Furtado
  * 5/9/2015
+ * Implementation of a layer of Neurons
  */
 public class NeuronLayer {
     private List<Neuron> neurons = new ArrayList<Neuron>();
