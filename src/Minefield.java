@@ -30,6 +30,7 @@ public class Minefield {
     //controls speed of the animation by causing the thread to sleep for a set amount of milliseconds
     private final int ANIMATION_SPEED = 2;
 
+
     public Minefield(int width, int height, int numSweepers, int numTargets){
         this.width = width;
         this.height = height;

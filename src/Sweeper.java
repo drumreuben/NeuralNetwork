@@ -57,7 +57,7 @@ public class Sweeper implements Comparable{
         updateInputs();
         //gets the sweeper sprite
         try {
-            sprite = ImageIO.read(new File("C:\\Users\\Reuben\\Desktop\\IdeaProjects\\NeuralNetwork\\src\\sweeperSprite.png"));
+            sprite = ImageIO.read(new File("sweeperSprite.png"));
         } catch (Exception e){
             System.out.println("error reading minesweeper sprite file");
         }
@@ -73,7 +73,7 @@ public class Sweeper implements Comparable{
         updateInputs();
         //gets the sweeper sprite
         try {
-            sprite = ImageIO.read(new File("C:\\Users\\Reuben\\Desktop\\IdeaProjects\\NeuralNetwork\\src\\sweeperSprite.png"));
+            sprite = ImageIO.read(new File("sweeperSprite.png"));
         } catch (Exception e){
             System.out.println("error reading minesweeper sprite file");
         }
@@ -178,9 +178,11 @@ public class Sweeper implements Comparable{
        // for(double d : neuralNet.getAllWeights()){
         //    System.out.println(d);
         //}
-        rotation += neuralNet.processNet(inputs).get(0)*30;
+        double changeRotation = (neuralNet.processNet(inputs).get(0)-.5)*10;
+        //System.out.println(changeRotation);
+        rotation += changeRotation;
        rotation = rotation % 360;
-       speed = 5* neuralNet.getOutputs().get(1);
+       speed = 5* (neuralNet.getOutputs().get(1)-.5);
     }
 
 
