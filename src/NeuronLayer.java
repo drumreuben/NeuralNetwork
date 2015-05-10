@@ -4,9 +4,10 @@ import java.util.List;
 /**
  * Miro Furtado
  * 5/9/2015
+ * Implementation of a layer of Neurons
  */
 public class NeuronLayer {
-    private List<Neuron> neurons;
+    private List<Neuron> neurons = new ArrayList<Neuron>();
     private int numNeurons;
 
     /**
@@ -51,6 +52,7 @@ public class NeuronLayer {
     public List<Double> processLayer(List<Double> input) {
         List<Double> outputs = new ArrayList<Double>();
         for(Neuron n : neurons) {
+            input.add(-1.0);
             outputs.add(n.calcOutput(input));
         }
         return outputs;

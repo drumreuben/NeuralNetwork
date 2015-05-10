@@ -1,30 +1,35 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Miro Furtado
  * 5/9/2015
+ * Implementation of an individual Neuron, which takes input values and returns an output based on weights.
  */
 public class Neuron {
     //Defining weights, inputs, and activation as per http://www.ai-junkie.com/ann/evolved/nnt3.html
-    private List<Double> weights;
-    private List<Double> inputs;
-    private double activation = 0;
-    private double output = 0;
+    private List<Double> weights = new ArrayList<Double>();
+    private List<Double> inputs = new ArrayList<Double>();
     private int numInputs;
+    private double output;
 
     /**
      * Constructor for a neuron with numInputs number of inputs.
      * Creates one more weight than input as the threshold value
      */
-    public Neuron(int numInputs) {
-        for(int i = 0; i <= numInputs; i++)
+    public Neuron(int in) {
+        for(int i = 0; i <= in; i++) {
             weights.add(Math.random());
+        }
+        numInputs = in;
     }
 
     /**
      * Constructor for a neuron with numInputs number of inputs and weights
      */
-    public Neuron(int numInputs, List<Double> weights) {
+    public Neuron(int nIn, List<Double> w) {
+        nIn = numInputs;
+        weights = w;
     }
 
     /**
@@ -33,7 +38,7 @@ public class Neuron {
      */
     public void setInputs(List<Double> inp) {
         inputs = inp;
-        inputs.add(-1.0);
+        //inputs.add(-1.0);
     }
 
     /**
@@ -66,6 +71,7 @@ public class Neuron {
      * Calculates activation and output
      */
     public double calcOutput(){
+        double activation = 0;
         for(int i = 0; i < weights.size(); i++) {
             activation += weights.get(i) * inputs.get(i);
         }
@@ -76,6 +82,7 @@ public class Neuron {
      * Calculates activation and output for a given set of inputs
      */
     public double calcOutput(List<Double> inp) {
+        //System.out.println(weights.size());
         setInputs(inp);
         return calcOutput();
     }

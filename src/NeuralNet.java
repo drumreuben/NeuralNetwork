@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Miro Furtado
  * 5/9/2015
+ * Implementation of a network of Neurons which interact with each other.
  */
 public class NeuralNet {
     //Basic parameter variables for a NeuralNet
@@ -10,7 +12,7 @@ public class NeuralNet {
     int numOutputs;
     int numHiddenLayers;
     int numNeuronsPerHiddenLayer;
-    List<NeuronLayer> layers;
+    List<NeuronLayer> layers = new ArrayList<NeuronLayer>();
 
     /**
      * Constructor for NeuralNet using above parameters
@@ -31,7 +33,7 @@ public class NeuralNet {
      */
     public List<Double> processNet(List<Double> i) {
         List<Double> input = i;
-        List<Double> output = null;
+        List<Double> output = null  ;
         for(NeuronLayer l : layers) {
             output = l.processLayer(input);
             input = output;
@@ -43,7 +45,7 @@ public class NeuralNet {
      * Returns entire "genome"- ie. all the weights for all the neurons in the NeuralNet
      */
     public List<Double> getAllWeights(){
-        List<Double> allWeights = null;
+        List<Double> allWeights = new ArrayList<Double>();
         for(NeuronLayer l : layers)
             for(Neuron n : l.getNeurons())
                 for(Double weight : n.getWeights())
@@ -58,6 +60,7 @@ public class NeuralNet {
         int startingInt = 0;
         for(NeuronLayer l : layers)
             for(Neuron n : l.getNeurons()){
+                //System.out.println(n.getNumInputs());
                 n.setWeights(genome.subList(startingInt, startingInt+n.getNumInputs()));
                 startingInt += n.getNumInputs();
             }
