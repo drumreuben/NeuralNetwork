@@ -51,6 +51,7 @@ public class NeuronLayer {
      */
     public List<Double> processLayer(List<Double> input) {
         List<Double> outputs = new ArrayList<Double>();
+        //System.out.println(neurons.size());
         for(Neuron n : neurons) {
             input.add(-1.0);
             outputs.add(n.calcOutput(input));

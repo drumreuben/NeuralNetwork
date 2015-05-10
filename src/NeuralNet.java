@@ -13,11 +13,16 @@ public class NeuralNet {
     int numHiddenLayers;
     int numNeuronsPerHiddenLayer;
     List<NeuronLayer> layers = new ArrayList<NeuronLayer>();
+    List<Double> outputs = new ArrayList<Double>();
 
     /***
      * Constructor for NeuralNet using above parameters
      */
-    public NeuralNet(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer) {
+    public NeuralNet(int nIn, int numOut, int numHiddenL, int numNeuronsPerHiddenL) {
+        numInputs = nIn;
+        numOutputs = numOut;
+        numHiddenLayers = numHiddenL;
+        numNeuronsPerHiddenLayer = numNeuronsPerHiddenL;
         //First add the first hidden layer
         layers.add(new NeuronLayer(numNeuronsPerHiddenLayer, numInputs));
         //Add the rest of the hidden layers
@@ -33,12 +38,17 @@ public class NeuralNet {
      */
     public List<Double> processNet(List<Double> i) {
         List<Double> input = i;
-        List<Double> output = null  ;
+        List<Double> output = null;
         for(NeuronLayer l : layers) {
             output = l.processLayer(input);
             input = output;
         }
+        outputs = output;
         return output;
+    }
+
+    public List<Double> getOutputs() {
+        return outputs;
     }
 
     /***
@@ -71,7 +81,8 @@ public class NeuralNet {
      * Returns 1-class deep copy of NeuralNet
      */
     public NeuralNet getCopy() {
-        return new NeuralNet(numInputs, numOutputs, numHiddenLayers, numNeuronsPerHiddenLayer);
+        NeuralNet toReturn = new NeuralNet(numInputs, numOutputs, numHiddenLayers, numNeuronsPerHiddenLayer);
+        return toReturn;
     }
 
     /***

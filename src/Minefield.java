@@ -31,10 +31,12 @@ public class Minefield {
     private final int ANIMATION_SPEED = 2;
 
     public Minefield(int width, int height, int numSweepers, int numTargets){
-        for(int i = 0; i < numSweepers; i++)
-            sweepers.add(new Sweeper(this));
+        this.width = width;
+        this.height = height;
         for(int i = 0; i < numTargets; i++)
             targets.add(new Target(this));
+        for(int i = 0; i < numSweepers; i++)
+            sweepers.add(new Sweeper(this));
         //sets up swing components for graphical rendering
         panel = new MyGraphicPanel(this);
         frame = new JFrame("Window");
@@ -66,6 +68,9 @@ public class Minefield {
         return width;
     }
 
+    public void setSweepers(List<Sweeper> toSet) {
+        sweepers = toSet;
+    }
     /**
     Gets height
      */
@@ -82,10 +87,10 @@ public class Minefield {
             for(Sweeper s : sweepers) {
                 //updates sweeper position
                 s.updatePosition();
-                //makes sure sweeped is within the bounds of the window
+                //makes sure sweeper is within the bounds of the window
                 fixPosition(s);
                 if(s.foundTarget()){
-                    targets.remove(s.getClosestTarget());
+                    targets.remove(s.getClosestTargetIndex());
                     targets.add(new Target(this));
                 }
             }
@@ -93,6 +98,13 @@ public class Minefield {
             if(generation > drawDelay){
                 panel.repaint();
             }
+            //delays animation
+            try{
+                Thread.sleep(ANIMATION_SPEED);
+            } catch (InterruptedException e){
+                //there was an error!
+            }
+            i++;
         }
     }
 

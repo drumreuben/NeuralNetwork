@@ -14,4 +14,21 @@ public class Run {
     //how long to run each generation
     private int tick;
 
+    public static void main(String[] args){
+        //int sweeperCount = Integer.parseInt(args[0]);
+        //int mineCount = Integer.parseInt(args[1]);
+        Minefield m = new Minefield(800, 800, 14, 10);
+
+        int i = 0;
+        while(true){
+            m.simulate(5000, 15, i);
+            List<Sweeper> nextGen = GeneticAlgorithm.makeNextGeneration(m.getSweepers(), m);
+            m.setSweepers(nextGen);
+            /*m.setSweepers(nextGen);*/
+            System.out.println(i) ;
+            i++;
+        }
+
+    }
+
 }

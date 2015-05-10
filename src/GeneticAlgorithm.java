@@ -17,7 +17,7 @@ public class GeneticAlgorithm {
     Given a population of sweepers, return a new population of the same size
     where the principles of evolution have been applied
      */
-    public static List<Sweeper> makeNextGeneration(List<Sweeper> currentGen){
+    public static List<Sweeper> makeNextGeneration(List<Sweeper> currentGen, Minefield m){
         //sorts the current generation based on fitness from low to high
         Collections.sort(currentGen);
         //the sweepers of the next generation
@@ -37,7 +37,7 @@ public class GeneticAlgorithm {
             //mutates the genome
             mutate(newGenome);
             //creates a new child sweeper with the correct neural net structure
-            Sweeper child = new Sweeper(neuralNet.getCopy());
+            Sweeper child = new Sweeper(m, neuralNet.getCopy());
             //pushes the new genome to the child's neural net
             child.getNeuralNet().pushAllWeights(newGenome);
             //adds the child to the new generation
