@@ -26,6 +26,9 @@ public class NeuralNet {
         layers.add(new NeuronLayer(numOutputs, numNeuronsPerHiddenLayer));
     }
 
+    /**
+     * Processes NeuralNet from input and returns output
+     */
     public List<Double> processNet(List<Double> i) {
         List<Double> input = i;
         List<Double> output = null;
@@ -34,6 +37,31 @@ public class NeuralNet {
             input = output;
         }
         return output;
+    }
+
+    /**
+     * Returns entire "genome"- ie. all the weights for all the neurons in the NeuralNet
+     */
+    public List<Double> getAllWeights(){
+        List<Double> allWeights = null;
+        for(NeuronLayer l : layers)
+            for(Neuron n : l.getNeurons())
+                for(Double weight : n.getWeights())
+                    allWeights.add(weight);
+        return allWeights;
+    }
+
+    /**
+     * Pushes new genome into NeuralNet
+     */
+    public void pushAllWeights(List<Double> genome){
+        int startingInt = 0;
+        for(NeuronLayer l : layers)
+            for(Neuron n : l.getNeurons()){
+                n.setWeights(genome.subList(startingInt, startingInt+n.getNumInputs()));
+                startingInt += n.getNumInputs();
+            }
+
     }
 
     /**

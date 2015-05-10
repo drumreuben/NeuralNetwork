@@ -39,6 +39,13 @@ public class NeuronLayer {
     }
 
     /**
+     * Gets list of all Neurons in layer
+     */
+    public List<Neuron> getNeurons() {
+        return neurons;
+    }
+
+    /**
      * Returns an array of the outputs from all Neurons in the NeuronLayer
      */
     public List<Double> processLayer(List<Double> input) {

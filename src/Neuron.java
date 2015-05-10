@@ -10,6 +10,7 @@ public class Neuron {
     private List<Double> inputs;
     private double activation = 0;
     private double output = 0;
+    private int numInputs;
 
     /**
      * Constructor for a neuron with numInputs number of inputs.
@@ -55,6 +56,10 @@ public class Neuron {
 
     public double getOutput(){
         return output;
+    }
+
+    public int getNumInputs(){
+        return numInputs;
     }
 
     /**
