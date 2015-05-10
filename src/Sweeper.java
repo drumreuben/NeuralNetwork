@@ -64,7 +64,7 @@ public class Sweeper implements Comparable{
     }
 
     public Sweeper(Minefield m){
-        neuralNet = new NeuralNet(2,2,1,4);
+        neuralNet = new NeuralNet(2,2,2,5);
         x = (int) (Math.random()*m.getWidth());
         y = (int) (Math.random()*m.getHeight());
         this.minefield = m;
