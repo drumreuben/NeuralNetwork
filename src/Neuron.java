@@ -13,7 +13,7 @@ public class Neuron {
     private int numInputs;
     private double output;
 
-    /***
+    /**
      * Constructor for a neuron with numInputs number of inputs.
      * Creates one more weight than input as the threshold value
      */
@@ -24,7 +24,7 @@ public class Neuron {
         numInputs = in;
     }
 
-    /***
+    /**
      * Constructor for a neuron with numInputs number of inputs and weights
      */
     public Neuron(int nIn, List<Double> w) {
@@ -32,7 +32,7 @@ public class Neuron {
         weights = w;
     }
 
-    /***
+    /**
      * Sets input list for Neuron
      * Creates one more input of value -1 as the threshold value
      */
@@ -41,14 +41,14 @@ public class Neuron {
         //inputs.add(-1.0);
     }
 
-    /***
+    /**
      * Sets weight list for Neuron
      */
     public void setWeights(List<Double> weig) {
         weights = weig;
     }
 
-    /***
+    /**
      * Get functions below
      */
     public List<Double> getInputs(){
@@ -67,7 +67,7 @@ public class Neuron {
         return numInputs;
     }
 
-    /***
+    /**
      * Calculates activation and output
      */
     public double calcOutput(){
@@ -78,7 +78,7 @@ public class Neuron {
         output = 1/(1+Math.pow(Math.E, -activation));
         return output;
     }
-    /***
+    /**
      * Calculates activation and output for a given set of inputs
      */
     public double calcOutput(List<Double> inp) {
