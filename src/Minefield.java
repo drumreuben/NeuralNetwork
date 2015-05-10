@@ -98,12 +98,12 @@ public class Minefield {
             //only draws if the current generation is after the draw delay
             if(generation > drawDelay){
                 panel.repaint();
-            }
             //delays animation
             try{
                 Thread.sleep(ANIMATION_SPEED);
             } catch (InterruptedException e){
                 //there was an error!
+            }
             }
             i++;
         }

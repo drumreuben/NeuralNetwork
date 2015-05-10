@@ -21,14 +21,15 @@ public class Run {
 
         int i = 0;
         while(true){
-            m.simulate(5000, 15, i);
+            m.simulate(5000, 100, i);
             int collisions = 0;
             for(Sweeper s : m.getSweepers()){
                 collisions += s.getFitness();
                 m.getSweepers().set(0, new Sweeper(m));
             }
-            for(Target t : m .getTargets()) {
-                t = new Target(m);
+            for(int j = 0; j < m.getTargets().size(); j++) {
+                    m.getTargets().remove(j);
+                    m.getTargets().add(new Target(m));
             }
             System.out.println("total collisions : " + collisions);
             List<Sweeper> nextGen = GeneticAlgorithm.makeNextGeneration(m.getSweepers(), m);
