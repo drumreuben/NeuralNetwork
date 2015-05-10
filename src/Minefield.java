@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -8,14 +9,17 @@ import java.util.List;
 public class Minefield {
 
     //targets on the field
-    private List<Target> targets;
+    private List<Target> targets = new ArrayList<Target>();
+    private int numTargets;
 
     //sweepers on the field
-    private List<Sweeper> sweepers;
+    private List<Sweeper> sweepers = new ArrayList<Sweeper>();
+    private int numSweepers;
 
     //dimension of the minefield
     private int width;
     private int height;
+
 
     //Jframe window of the minefield
     JFrame frame;
@@ -25,6 +29,13 @@ public class Minefield {
 
     //controls speed of the animation by causing the thread to sleep for a set amount of milliseconds
     private final int ANIMATION_SPEED = 2;
+
+    public Minefield(int width, int height, int numSweepers, int numTargets){
+        for(int i = 0; i < numSweepers; i++)
+            sweepers.add(new Sweeper(this));
+        for(int i = 0; i < numTargets; i++)
+            targets.add(new Target(this));
+    }
 
     /**
     gets the list of targets

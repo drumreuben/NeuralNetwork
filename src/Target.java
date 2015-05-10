@@ -14,6 +14,13 @@ public class Target {
     private int width = 10;
     private int height = 10;
 
+    private Minefield minefield;
+
+    public Target(Minefield m) {
+        x = (int) (m.getWidth()*Math.random());
+        y = (int) (m.getHeight()*Math.random());
+    }
+
     /**
     Gets x Position
      */
