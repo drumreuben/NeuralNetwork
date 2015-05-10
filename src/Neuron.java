@@ -19,7 +19,7 @@ public class Neuron {
      */
     public Neuron(int in) {
         for(int i = 0; i <= in; i++) {
-            weights.add(Math.random());
+            weights.add((Math.random()*2)-1);
         }
         numInputs = in;
     }

@@ -82,7 +82,7 @@ public class GeneticAlgorithm {
     public static List<Double> mutate(List<Double> genome){
         for(int i = 0; i < genome.size(); i++){
             if(Math.random() < mutationRate){
-                genome.set(i, Math.random());
+                genome.set(i, Math.random()*2-1);
             }
         }
         return genome;
