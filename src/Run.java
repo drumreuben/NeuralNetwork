@@ -23,7 +23,7 @@ public class Run {
         int i = 0;
         while(true){
             collisions = 0;
-            m.simulate(10000, 500, i);
+            m.simulate(20000, 20000, i);
             for(Sweeper s : m.getSweepers()){
                 collisions += s.getFitness();
             }

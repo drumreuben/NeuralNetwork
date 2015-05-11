@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,9 @@ public class Minefield {
     private List<Target> targets = new ArrayList<Target>();
     private int numTargets;
 
+    //mouseListener for swing input
+    MouseListener m;
+
     //sweepers on the field
     private List<Sweeper> sweepers = new ArrayList<Sweeper>();
     private int numSweepers;
@@ -19,6 +25,9 @@ public class Minefield {
     //dimension of the minefield
     private int width;
     private int height;
+
+    //boolean for toggling animation on and off
+    boolean isAnimating = false;
 
 
     //Jframe window of the minefield
@@ -46,6 +55,14 @@ public class Minefield {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
+        m = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                isAnimating = !isAnimating;
+                System.out.println("!");
+            }
+        };
+        frame.addMouseListener(m);
     }
 
     /**
@@ -97,14 +114,14 @@ public class Minefield {
                 }
             }
             //only draws if the current generation is after the draw delay
-            if(generation > drawDelay){
+            if(isAnimating){
                 panel.repaint();
-            //delays animation
-            try{
-                Thread.sleep(ANIMATION_SPEED);
-            } catch (InterruptedException e){
-                //there was an error!
-            }
+                //delays animation
+                try{
+                    Thread.sleep(ANIMATION_SPEED);
+                } catch (InterruptedException e){
+                    //there was an error!
+                }
             }
             i++;
         }

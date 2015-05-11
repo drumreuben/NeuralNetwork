@@ -10,7 +10,7 @@ import java.util.List;
 public class GeneticAlgorithm {
 
     //Rate of mutation and rate of crossover
-    static double mutationRate = .01;
+    static double mutationRate = .05;
     static double crossoverRate = .7;
 
     /**
@@ -18,20 +18,25 @@ public class GeneticAlgorithm {
     where the principles of evolution have been applied
      */
     public static List<Sweeper> makeNextGeneration(List<Sweeper> currentGen, Minefield m){
-        //sorts the current generation based on fitness from low to high
-        Collections.sort(currentGen);
+        //creates a new list of sweepers, where how many times a sweeper is in the group is proportional to its fitness
+        List<Sweeper> genProportional = new ArrayList<Sweeper>();
+        for(int i = 0; i < currentGen.size(); i++){
+            for(int j = 0; j < currentGen.get(i).getFitness(); j++){
+                genProportional.add(currentGen.get(i));
+            }
+        }
         //the sweepers of the next generation
         List<Sweeper> newGen = new ArrayList<Sweeper>();
-        //the two fittest sweepers are selected to be parents
-        Sweeper parent1 = currentGen.get(currentGen.size()-1);
-        Sweeper parent2 = currentGen.get(currentGen.size()-2);
-        //genomes of each parent
-        List<Double> genome1 = parent1.getGenome();
-        List<Double> genome2 = parent2.getGenome();
-        //the template neural net
-        NeuralNet neuralNet = parent1.getNeuralNet().getCopy();
         //fills the next generation with offspring of the parents
-        for(int i = 0; i < currentGen.size(); i++){
+        while(newGen.size() < currentGen.size()) {
+            //the two fittest sweepers are selected to be parents
+            Sweeper parent1 = genProportional.get((int)(Math.random() * genProportional.size()));
+            Sweeper parent2 = genProportional.get((int)(Math.random() * genProportional.size()));
+            //genomes of each parent
+            List<Double> genome1 = parent1.getGenome();
+            List<Double> genome2 = parent2.getGenome();
+            //the template neural net
+            NeuralNet neuralNet = parent1.getNeuralNet().getCopy();
             //creates a new genome
             List<Double> newGenome = (crossover(genome1, genome2));
             //mutates the genome
