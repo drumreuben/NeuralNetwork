@@ -18,32 +18,21 @@ public class Run {
         //int sweeperCount = Integer.parseInt(args[0]);
         //int mineCount = Integer.parseInt(args[1]);
         Minefield m = new Minefield(800, 800, 10, 6);
-        int oldCollisions = 0;
-        int currentCollisions;
-        List<Sweeper> currentGen;
-        List<Sweeper> oldGen = m.getSweepers();
+        int collisions;
 
         int i = 0;
         while(true){
-            currentGen = GeneticAlgorithm.makeNextGeneration(oldGen, m);
-            currentCollisions = 0;
-            m.setSweepers(currentGen);
+            collisions = 0;
             m.simulate(10000, 500, i);
-            for(Sweeper s : currentGen){
-                currentCollisions += s.getFitness();
-                //m.getSweepers().set(0, new Sweeper(m));
+            for(Sweeper s : m.getSweepers()){
+                collisions += s.getFitness();
             }
+            System.out.println("total collisions : " + collisions);
             for(int j = 0; j < m.getTargets().size(); j++) {
                 m.getTargets().remove(j);
                 m.getTargets().add(new Target(m));
             }
-            if(currentCollisions < oldCollisions){
-                m.setSweepers(oldGen);
-            } else {
-                oldGen = currentGen;
-                oldCollisions = currentCollisions;
-            }
-            System.out.println("total collisions : " + currentCollisions);
+            m.setSweepers(GeneticAlgorithm.makeNextGeneration(m.getSweepers(), m));
             System.out.println(i) ;
             i++;
         }

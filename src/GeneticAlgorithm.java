@@ -10,7 +10,7 @@ import java.util.List;
 public class GeneticAlgorithm {
 
     //Rate of mutation and rate of crossover
-    static double mutationRate = .001;
+    static double mutationRate = .01;
     static double crossoverRate = .7;
 
     /**
